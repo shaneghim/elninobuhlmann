@@ -2,7 +2,7 @@
 
 A Bühlmann credibility analysis of California NFIP flood claims, 1979–2025, ahead of the 2026–27 El Niño.
 
-**Report:** [comingsdfs]
+**Report:** [[comingsdfs](https://shaneghim.github.io/elninobuhlmann/)]
 
 ## Questions
 1. How much higher should a California flood insurer expect losses to be in a strong El Niño winter?
