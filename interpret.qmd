@@ -1,0 +1,115 @@
+---
+title: "Does a Strong El Niño Raise California Flood Losses?"
+subtitle: "A Bühlmann credibility analysis of NFIP flood claims, 1979–2025"
+author: "Shane Ghim"
+date: "2026-11-01"
+format:
+  html:
+    embed-resources: true
+---
+
+**Question**
+
+The National Oceanic and Atmospheric Administration (NOAA) expects a historically strong El Niño this coming winter (2026-2027). This project answers the following two questions:
+
+1.  [Statewide]{.underline}**:** How much higher should a California flood insurer expect losses to be in a strong El Niño winter?
+2.  [County]{.underline}**:** Do counties differ in how they react to El Niño, and how much should each county's own El Niño history be trusted?
+
+**Data**
+
+I used FEMA's [NFIP Redacted Claims (v3)](https://www.fema.gov/api/open/v3/NfipClaims) data set, filtered to California and downloaded October 31, 2026. After cleaning and keeping relevant columns, it had 51,862 claims across 56 counties (two counties had no claims). Each claim's loss equals its net building plus contents payment, trended to 2025 dollars with the [CPI](https://fred.stlouisfed.org/series/CPIAUCSL) from FRED.
+
+Note: the CPI in October 2025 was not published due to the federal government shutdown, so the 2025 average uses the 11 months available.
+
+Each claim is assigned to a winter year, running from October to September, and labeled by the year it ends, so December 1997 and February 1998 both fall in winter 1998. We kept the complete winters from 1979 to 2025 and classified each by its December to February value of NOAA's [Oceanic Niño Index](https://cpc.ncep.noaa.gov/products/analysis_monitoring/enso/oni/v6/) (ONI): strong El Niño (1.5 or higher), weak/moderate El Niño (0.5 to 1.5), neutral, or La Niña (-0.5 or lower), the opposite phase of El Niño. Six winters qualify as strong El Niño winters (strong winters, for short): 1983, 1992, 1998, 2010, 2016 and 2024. Losses were then totaled for every county in each winter, which we call a county-winter (say Los Angeles in winter 1992). This gives 2,632 county-winters (56 counties x 47 winters), about 41% of which had no claims and were filled in with zeros.
+
+**Method**
+
+We first compare the average strong El Niño winter to the average of all 47 winters statewide, calling this ratio the El Niño load. It takes the six strong winters at face value, so it serves as a starting point.
+
+A county's long-run average is its average loss per winter across all 47 winters, including winters with no claims. A relativity is a county-winter's loss divided by that county's long-run average, so it measures how a winter compared with that county's normal winter. A relativity of 2 means the winter cost twice a normal winter for that county. Relativities remove the effect of county size, so counties can be compared directly. A county's own El Niño factor is its average relativity over the six strong winters, which measures how strongly it has reacted to El Niño.
+
+We chose Bühlmann credibility because the second question, how much to trust each county’s own El Niño history, is a credibility problem. With only six strong El Niño winters, a county's own factor may reflect chance rather than true risk. Bühlmann credibility compares the variation within counties (the expected process variance, EPV) to the real differences between them (the variance of hypothetical means, VHM). These give a weight, Z = n / (n + k), where k = EPV / VHM and n = 6, and each county's credibility factor is Z times its own factor plus (1 - Z) times the statewide El Niño load. If the VHM is zero or negative, there is no evidence that counties differ, and Z is 0. The calculations were verified using the actuar package.
+
+Finally, we repeated the analysis using different definitions of a strong winter and with the largest winters removed, to see how much the results depend on any single winter.
+
+**Results**
+
+[Losses by El Niño phase]{.underline}
+
+![](output/01_losses_by_winter.png)
+
+| ENSO phase | Winters | Average (\$M) | Median (\$M) | Largest (\$M) | Share above average |
+|------------|------------|------------|------------|------------|------------|
+| La Niña | 17 | 18.8 | 5.1 | 147 | 12% |
+| Neutral | 14 | 24.6 | 8.4 | 102 | 29% |
+| Weak/Moderate El Niño | 10 | 41.5 | 13.5 | 244 | 40% |
+| Strong El Niño | 6 | 46.4 | 20.7 | 126 | 50% |
+
+We can see that losses rise steadily from La Niña to strong El Niño. The share of winters above the long-run average of \$28.9 million climbs from 12% in La Niña winters to 50% in strong El Niño winters. This is the most consistent sign of an El Niño effect since it doesn't depend on one extreme year. We do have to consider that El Niño isn't the only determinant, though. The most expensive winter to date (1995, \$244 million) was a moderate El Niño, and the second most expensive (2006, \$147 million) was a La Niña winter. In every phase the average is well above the median, because a few severe winters make up most of the losses.
+
+[How much worse is a strong El Niño winter?]{.underline}
+
+![](output/02_oni_vs_losses.png)
+
+| Winter | ONI | Claims | Paid (\$M) |
+|--------|-----|--------|------------|
+| 1983   | 2.1 | 4,500  | 96.8       |
+| 1992   | 1.5 | 711    | 7.8        |
+| 1998   | 2.2 | 7,259  | 126        |
+| 2010   | 1.5 | 507    | 8.4        |
+| 2016   | 2.5 | 349    | 6.9        |
+| 2024   | 1.8 | 591    | 32.9       |
+
+The average strong El Niño winter cost \$46.4 million, about 1.61 times the average winter. The six winters split sharply, though. 1983 and 1998 cost about \$97 million and \$126 million, and 2024 was slightly above average at \$32.9 million. The other three each cost under \$10 million, and 2016, the strongest El Niño by ONI, was among the cheapest. This is an indicator that while a strong El Niño raises the chance of a severe flood winter, it doesn't necessarily guarantee one.
+
+[Do counties respond differently?]{.underline}
+
+![](output/04_county_factors.png)
+
+The counties’ own El Niño factors range from 0 (four counties had no strong winter losses) to 7.83 (Alpine). Despite this spread, the EPV is 18.45 and the VHM is -0.313, showing that county averages differ less than what noise alone would produce. So Z is 0, and every county gets the statewide factor of 1.61. Restricting to the 41 counties with at least 100 claims still gives Z = 0, so this isn’t just small counties adding noise. The actuar package’s cm() function returns the same estimates; its overall mean of 1.56 is a simple average of the county factors, while we use the dollar-weighted statewide El Niño load of 1.61 to predict statewide dollar losses.
+
+We also see the possibility of a regional pattern. Several Southern California counties (Los Angeles, Orange, San Diego, Ventura) rank near the top and many northern counties (Sonoma, Napa, Sacramento, Shasta) near the bottom, with exceptions like Glenn and Lake. This fits El Niño’s usual tilt toward wetter conditions in the south, but the six winters of county data can’t confirm it.
+
+[Sensitivity to the largest winters]{.underline}
+
+![](output/05_sensitivity.png)
+
+| Scenario | Strong winters | Counties | El Niño load | Z |
+|---------------|---------------|---------------|---------------|---------------|
+| Baseline (ONI 1.5 or higher) | 1983, 1992, 1998, 2010, 2016, 2024 | 56 | 1.61 | 0 |
+| Drop 1998 | 1983, 1992, 2010, 2016, 2024 | 56 | 1.06 | 0 |
+| Drop 1983 and 1998 | 1992, 2010, 2016, 2024 | 56 | 0.48 | 0.26 |
+| ONI 1.0 or higher | 1983, 1987, 1992, 1998, 2010, 2016, 2019, 2024 | 56 | 1.43 | 0 |
+| ONI 2.0 or higher | 1983, 1998, 2016 | 56 | 2.65 | 0 |
+| Strong winters since 2000 | 2010, 2016, 2024 | 56 | 0.56 | 0.27 |
+| Counties with 100+ claims | 1983, 1992, 1998, 2010, 2016, 2024 | 41 | 1.61 | 0 |
+
+The El Niño load depends heavily on which winters are included. Dropping 1998 lowers it to 1.06, close to no effect, and dropping both 1983 and 1998 gives 0.48, meaning that without those two winters, strong El Niño winters were cheaper than average. Using only the strongest winters (ONI of 2.0 or higher) gives 2.65, but that rests on three winters, including the low loss 2016. Z stays at 0 in most scenarios and only reaches about 0.26 when 1983 and 1998 are removed. Those storms hit nearly every county at once; without them some county differences appear, but three or four winters is too few to rely on.
+
+[Prediction for 2026–27]{.underline}
+
+| County        | Own factor | Credibility factor | Predicted loss (\$M) |
+|---------------|------------|--------------------|----------------------|
+| Sonoma        | 0.43       | 1.61               | 8.77                 |
+| Los Angeles   | 3.38       | 1.61               | 5.04                 |
+| Marin         | 1.21       | 1.61               | 3.40                 |
+| Sacramento    | 0.23       | 1.61               | 2.59                 |
+| Monterey      | 0.53       | 1.61               | 2.45                 |
+| San Diego     | 3.86       | 1.61               | 2.28                 |
+| Napa          | 0.09       | 1.61               | 1.97                 |
+| Santa Barbara | 1.59       | 1.61               | 1.60                 |
+| Santa Clara   | 4.35       | 1.61               | 1.52                 |
+| Santa Cruz    | 2.92       | 1.61               | 1.42                 |
+
+Each county's expected loss is its long-run average times its credibility factor. Since Z is 0, every county gets the same factor of 1.61, giving the statewide expected loss of \$46.4 million for 2026-27 (in 2025 dollars), or about \$14.0 million to \$76.5 million across the sensitivity scenarios. This is an expected value, not a forecast, as four of the six past strong El Niño winters came in below it and two well above. This prediction is made November 1, 2026, before the main storm season, and will be compared with actual claims in spring 2027.
+
+**Conclusions**
+
+Strong El Niño winters have cost around 1.61 times the average winter in California, and the share of winters with above-average losses rises steadily from La Niña (12%) to strong El Niño (50%). We see that the load rests almost entirely on 1983 and 1998, and dropping 1998 alone brings it down to 1.06. Counties' own El Niño histories look very different, but Bühlmann credibility finds no evidence that those differences are real (Z = 0), so the same statewide adjustment should apply to every county. Our expected loss for 2026-27 is \$46.4 million, with a wide range of about \$14.0 million to \$76.5 million, which reflects how few strong El Niño winters there are to learn from.
+
+**Limitations**
+
+This uses NFIP claims only, so private flood insurance and uninsured losses are left out. There are only six strong El Niño winters, and two of them drive most of the result. The number of NFIP policies per county has changed over time, so we couldn't adjust for exposure. Bühlmann-Straub credibility would weigh counties by policy counts, but NFIP only provides them from 2009, after three of the six strong winters occured. Classifying winters by their December-February ONI misses early-peaking events like 1987, and trending with CPI likely understates growth in flood claim costs. While we use the standard ONI here, NOAA now uses the Relative ONI for official monitoring.
+
+**\*This product uses the FEMA OpenFEMA API, but is not endorsed by FEMA.**
