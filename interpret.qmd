@@ -110,6 +110,6 @@ Strong El Niño winters have cost around 1.61 times the average winter in Califo
 
 **Limitations**
 
-This uses NFIP claims only, so private flood insurance and uninsured losses are left out. There are only six strong El Niño winters, and two of them drive most of the result. The number of NFIP policies per county has changed over time, so we couldn't adjust for exposure. Bühlmann-Straub credibility would weigh counties by policy counts, but NFIP only provides them from 2009, after three of the six strong winters occured. Classifying winters by their December-February ONI misses early-peaking events like 1987, and trending with CPI likely understates growth in flood claim costs. While we use the standard ONI here, NOAA now uses the Relative ONI for official monitoring.
+This uses NFIP claims only, so private flood insurance and uninsured losses are left out. There are only six strong El Niño winters, and two of them drive most of the result. The number of NFIP policies per county has changed over time, so we couldn't adjust for exposure. Bühlmann-Straub credibility would weigh counties by policy counts, but NFIP only provides them from 2009, after three of the six strong winters occurred. Classifying winters by their December-February ONI misses early-peaking events like 1987, and trending with CPI likely understates growth in flood claim costs. While we use the standard ONI here, NOAA now uses the Relative ONI for official monitoring.
 
 **\*This product uses the FEMA OpenFEMA API, but is not endorsed by FEMA.**
