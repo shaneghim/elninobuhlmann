@@ -33,4 +33,4 @@ interpret.qmd  report
 - FRED, [CPIAUCSL](https://fred.stlouisfed.org/series/CPIAUCSL)
 - NOAA CPC, [Oceanic Niño Index v6](https://cpc.ncep.noaa.gov/products/analysis_monitoring/enso/oni/v6/)
 
-This product uses the FEMA OpenFEMA API, but is not endorsed by FEMA.
+*This product uses the FEMA OpenFEMA API, but is not endorsed by FEMA.
