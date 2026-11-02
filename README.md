@@ -11,7 +11,7 @@ A Bühlmann credibility analysis of California NFIP flood claims, 1979–2025, a
 ## Key findings
 - Strong El Niño winters have cost about 1.61 times an average winter, but that rests almost entirely on 1983 and 1998. Without 1998, the load falls to 1.06.
 - Bühlmann credibility gives Z = 0: counties' apparent differences in El Niño response are consistent with noise, so one statewide adjustment applies everywhere.
-- Expected 2026–27 NFIP losses: $46.4M (2025 dollars), with a range of $14.0M to $76.5M across sensitivity tests.
+- Expected 2026–27 NFIP losses: $46.4 million (2025 dollars), with a range of $14.0 million to $76.5 million across sensitivity tests.
 
 ## Project structure
 ```
